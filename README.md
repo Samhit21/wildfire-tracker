@@ -2,7 +2,7 @@
 
 A full-stack wildfire monitoring application built with React and TypeScript.
 
-The project will eventually display wildfire activity using NASA FIRMS data. Milestone 1 establishes the frontend, backend, and basic API tests. Wildfire data integration will be added in a future milestone.
+Currently includes a minimal React frontend, an Express API with a health endpoint, and automated backend tests. NASA FIRMS wildfire data integration is planned.
 
 ## Current tech stack
 
