@@ -10,6 +10,28 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok' })
 })
 
+app.get('/api/fires', (_req, res) => {
+  res.json({
+    fires: [
+      {
+        id: 'sample-1',
+        latitude: 34.05,
+        longitude: -118.24,
+      },
+      {
+        id: 'sample-2',
+        latitude: 37.77,
+        longitude: -122.42,
+      },
+      {
+        id: 'sample-3',
+        latitude: 40.71,
+        longitude: -74.01,
+      }
+    ],
+  })
+})
+
 app.use((_req, res) => {
   res.status(404).json({ error: 'Not found' })
 })
