@@ -6,7 +6,7 @@ import type { Fire } from './types'
 export default function App() {
   const [status, setStatus] = useState('Connecting…')
   const [fires, setFires] = useState<Fire[]>([])
-  const [fireMessage, setFireMessage] = useState('Loading sample fires…')
+  const [fireMessage, setFireMessage] = useState('Loading detections...')
 
   useEffect(() => {
   const controller = new AbortController()
@@ -26,8 +26,8 @@ export default function App() {
       setFires(data.fires)
       setFireMessage(
         data.fires.length > 0
-          ? 'Fictional sample data'
-          : 'No sample locations found',
+          ? 'Source: NASA FIRMS — VIIRS S-NPP'
+          : 'No detections found for this region and period',
       )
     } catch {
       if (!controller.signal.aborted) {
@@ -73,16 +73,21 @@ export default function App() {
       <p role="status">{status}</p>
 
       <section aria-labelledby="fires-heading"> 
-        <h2 id="fires-heading">Sample Fire Locations</h2>
+        <h2 id="fires-heading">Satellite Fire Locations</h2>
         <p role="status">{fireMessage}</p>
 
-        <ul>
-          {fires.map((fire) => (
-            <li key={fire.id}>
-              {fire.latitude}, {fire.longitude}
-            </li>
-          ))}
-        </ul>
+          <p>
+            {fires.length} detections loaded.
+            Showing the first {Math.min(fires.length, 10)} below.
+          </p>
+
+          <ul>
+            {fires.slice(0, 10).map((fire) => (
+              <li key={fire.id}>
+                {fire.latitude}, {fire.longitude}
+              </li>
+            ))}
+          </ul>
         <FireMap fires={fires} />
       </section>
     </div>

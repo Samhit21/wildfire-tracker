@@ -1,5 +1,6 @@
 import express from 'express'
 import type { ErrorRequestHandler } from 'express'
+import { fetchFireDetections } from './services/firms.js'
 
 export const app = express()
 
@@ -10,26 +11,16 @@ app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok' })
 })
 
-app.get('/api/fires', (_req, res) => {
-  res.json({
-    fires: [
-      {
-        id: 'sample-1',
-        latitude: 34.05,
-        longitude: -118.24,
-      },
-      {
-        id: 'sample-2',
-        latitude: 37.77,
-        longitude: -122.42,
-      },
-      {
-        id: 'sample-3',
-        latitude: 40.71,
-        longitude: -74.01,
-      }
-    ],
-  })
+app.get('/api/fires', async (_req, res) => {
+  try {
+    const fires = await fetchFireDetections()
+
+    res.json({ fires })
+  } catch {
+    res.status(502).json({
+      error: 'Unable to load NASA FIRMS detections',
+    })
+  }
 })
 
 app.use((_req, res) => {

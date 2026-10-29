@@ -36,7 +36,7 @@ export default function FireMap({ fires }: FireMapProps) {
           <Popup>
             <strong>{fire.id}</strong>
             <br />
-            Fictional sample location
+            NASA FIRMS satellite detection
             <br />
             Latitude: {fire.latitude}
             <br />
